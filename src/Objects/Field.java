@@ -14,12 +14,6 @@ public class Field {
     private int x;
     private int y;
     private int radio;
-    /* We'll need:
-        private int sen;
-        private int cos;
-        private int tan;
-        private int radian;
-    */
 
     public Field(int x, int y, int radio) {
         this.x = x;

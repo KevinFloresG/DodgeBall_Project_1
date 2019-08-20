@@ -4,10 +4,23 @@
  * and open the template in the editor.
  */
 
+import Pattern.*;
+
 /**
  *
  * @author Kevin Flores
  */
 public class Main {
-    
+    public static void main(String[] args) throws InterruptedException{
+        Model model = new Model();
+        View view = new View();
+        Controller controller = new Controller(model, view);
+        
+        view.setVisible(true);
+        
+        for(;;){
+            Thread.sleep(10);
+            model.step();
+        }
+    }
 }
