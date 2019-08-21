@@ -13,7 +13,9 @@ import java.util.Observer;
 import javax.swing.JFrame;
 /**
  *
- * @author Kevin Flores
+ * @author 
+ * Kevin Flores
+ * Fernanda González
  */
 public class View extends JFrame implements Observer{
     
@@ -55,6 +57,7 @@ public class View extends JFrame implements Observer{
     void render(Model m, Graphics media){
         render(m.getBall(), media);
         render(m.getField(), media);
+        renderRacket(m.getRacket(), media);
     }
     
     void render(Ball b, Graphics media){
@@ -65,5 +68,9 @@ public class View extends JFrame implements Observer{
     void render(Field f, Graphics media){
         media.setColor(Color.black);
         media.drawOval(f.getX()-f.getRadio(), f.getY()-f.getRadio(), f.getRadio()*2, f.getRadio()*2);
+    }
+    void renderRacket(Racket r, Graphics media){
+        media.setColor(Color.BLUE);
+        media.fillRect(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
 }

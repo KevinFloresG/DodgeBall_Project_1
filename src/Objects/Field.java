@@ -7,7 +7,9 @@ package Objects;
 
 /**
  *
- * @author Kevin Flores
+ * @author 
+ * Kevin Flores
+ * Fernanda González
  */
 public class Field {
     

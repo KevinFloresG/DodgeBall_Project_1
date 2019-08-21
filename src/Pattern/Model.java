@@ -13,7 +13,9 @@ import java.util.Observer;
 
 /**
  *
- * @author Kevin Flores
+ * @author 
+ * Kevin Flores
+ * Fernanda González
  */
 public class Model extends Observable {
     /*
@@ -25,11 +27,20 @@ public class Model extends Observable {
     */
     private Ball ball;
     private Field field;
-    //private Racket racket;
+    private Racket racket;
 
     public Model() {
         this.ball = new Ball(15,300,300,5,5);
         this.field = new Field(300,300,200);
+        this.racket = new Racket(60, 15, 250, 300, 20, 0);
+    }
+
+    public Racket getRacket() {
+        return racket;
+    }
+
+    public void setRacket(Racket racket) {
+        this.racket = racket;
     }
 
     public Ball getBall() {
@@ -56,7 +67,7 @@ public class Model extends Observable {
     }
     
     public void step(){
-        //racket.move(this);
+        racket.move(this);
         ball.move(this);
         this.setChanged();
         this.notifyObservers();

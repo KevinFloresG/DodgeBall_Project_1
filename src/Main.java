@@ -8,7 +8,9 @@ import Pattern.*;
 
 /**
  *
- * @author Kevin Flores
+ * @author 
+ * Kevin Flores
+ * Fernanda González
  */
 public class Main {
     public static void main(String[] args) throws InterruptedException{
@@ -19,7 +21,7 @@ public class Main {
         view.setVisible(true);
         
         for(;;){
-            Thread.sleep(10);
+            Thread.sleep(100);
             model.step();
         }
     }

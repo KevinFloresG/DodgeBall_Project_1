@@ -11,7 +11,9 @@ import static java.lang.Math.sqrt;
 
 /**
  *
- * @author Kevin Flores
+ * @author 
+ * Kevin Flores
+ * Fernanda González
  */
 public class Ball extends Actor {
     

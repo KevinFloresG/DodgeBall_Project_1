@@ -9,7 +9,9 @@ import Pattern.Model;
 
 /**
  *
- * @author Kevin Flores
+ * @author 
+ * Kevin Flores
+ * Fernanda González
  */
 public class Racket extends Actor {
     
@@ -37,8 +39,18 @@ public class Racket extends Actor {
     public void setHeight(int height) {
         this.height = height;
     }
+    
     @Override
     public void move(Model model){
-        //TODO
+        if (getX()+ getBoost_x() >= model.getField().getX() || getX() <= model.getField().getRadio()){
+            setBoost_x(getBoost_x()*-1);
+//        } else {
+//            if (getY() - getBoost_y() + getHeight() > model.getField().getY() + model.getField().getRadio() || getY()+ getBoost_y() < model.getField().getY()+ model.getField().getRadio()) {
+//                setBoost_y(getBoost_y()*-1);
+//            }
+        }
+        this.setX(getX()+getBoost_x());
+        this.setY(getY()+getBoost_y());
     }
+   
 }

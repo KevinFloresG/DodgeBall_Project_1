@@ -9,7 +9,9 @@ import Pattern.Model;
 
 /**
  *
- * @author Kevin Flores
+ * @author 
+ * Kevin Flores
+ * Fernanda González
  */
 public abstract class Actor {
     
@@ -58,4 +60,5 @@ public abstract class Actor {
     }
     
     public abstract void move(Model model);
+    //public abstract boolean field_collision(Model model); 
 }
