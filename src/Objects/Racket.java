@@ -6,6 +6,7 @@
 package Objects;
 
 import Pattern.Model;
+import static java.lang.Math.pow;
 
 /**
  *
@@ -42,12 +43,26 @@ public class Racket extends Actor {
     
     @Override
     public void move(Model model){
-        if (getX()+ getBoost_x() >= model.getField().getX() || getX() <= model.getField().getRadio()){
-            setBoost_x(getBoost_x()*-1);
-//        } else {
-//            if (getY() - getBoost_y() + getHeight() > model.getField().getY() + model.getField().getRadio() || getY()+ getBoost_y() < model.getField().getY()+ model.getField().getRadio()) {
-//                setBoost_y(getBoost_y()*-1);
-//            }
+        int suma_x= getX()+getBoost_x();
+        double square= pow(model.getField().getRadio(), 2);
+        int suma_y= getY()+getBoost_y();
+        /*
+            Esquina superior izquierda: x 
+            Esquina inferior izquierda: y + height
+            Esquina superior derecha: x + width 
+            Esquina inferior derecha: y + height + width
+        */
+        if (pow(suma_x - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square){
+             setBoost_x(getBoost_x()*-1);
+        }
+        if (pow(suma_x + this.getWidth() - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square){
+             setBoost_x(getBoost_x()*-1);
+        }
+        if (pow(this.getX() - model.getField().getX(), 2) + pow (suma_y - model.getField().getY(),2)>= square){
+             setBoost_x(getBoost_y()*-1);
+        }
+        if (pow(this.getX() - model.getField().getX(), 2) + pow (suma_y + this.getHeight() - model.getField().getY(),2)>= square){
+             setBoost_x(getBoost_y()*-1);
         }
         this.setX(getX()+getBoost_x());
         this.setY(getY()+getBoost_y());

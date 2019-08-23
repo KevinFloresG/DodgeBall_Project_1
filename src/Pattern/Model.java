@@ -19,20 +19,21 @@ import java.util.Observer;
  */
 public class Model extends Observable {
     /*
-    private final static int UP = 1;
-    private final static int DOWN = 2;
-    private final static int LEFT = 3;
-    private final static int RIGHT = 4;
     private List<Ball> balls;
     */
     private Ball ball;
     private Field field;
     private Racket racket;
+    public static final int ARR=1;
+    public static final int ABA=2;
+    public static final int IZQ=3;
+    public static final int DER=4;
+    
 
     public Model() {
         this.ball = new Ball(15,300,300,5,5);
         this.field = new Field(300,300,200);
-        this.racket = new Racket(60, 15, 250, 300, 20, 0);
+        this.racket = new Racket(60, 15, 250, 300, 0, 0);
     }
 
     public Racket getRacket() {
@@ -71,5 +72,27 @@ public class Model extends Observable {
         ball.move(this);
         this.setChanged();
         this.notifyObservers();
+    }
+    public void move(int flecha){
+        switch (flecha){
+            case ARR: 
+                racket.setBoost_y(-2); //-
+                break;
+            case ABA: 
+                racket.setBoost_y(2);
+                break;
+            case IZQ: 
+                racket.setBoost_x(-2); //-
+                break;
+            case DER: 
+                racket.setBoost_x(2);
+                break;
+        }
+    }
+    public void stopVer(){
+        racket.setBoost_y(0);
+    }
+    public void stopHor(){
+        racket.setBoost_x(0);
     }
 }

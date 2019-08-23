@@ -18,7 +18,7 @@ public abstract class Actor {
     private int x;
     private int y;
     private int boost_x;
-    private int boost_y;
+    public int boost_y;
 
     public Actor(int x, int y, int boost_x, int boost_y) {
         this.x = x;
