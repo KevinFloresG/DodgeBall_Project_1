@@ -6,6 +6,8 @@
 package Pattern;
 
 import Objects.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,12 +20,13 @@ import java.util.Observer;
  * Fernanda González
  */
 public class Model extends Observable {
-    /*
+    
     private List<Ball> balls;
-    */
     private Ball ball;
     private Field field;
     private Racket racket;
+    private int points;
+    private double[] goals;
     public static final int ARR=1;
     public static final int ABA=2;
     public static final int IZQ=3;
@@ -31,9 +34,23 @@ public class Model extends Observable {
     
 
     public Model() {
-        this.ball = new Ball(15,300,300,5,5);
+        this.balls = new ArrayList<>();
+        this.ball = new Ball(20,300,300,5,5);
         this.field = new Field(300,300,200);
         this.racket = new Racket(60, 15, 250, 300, 0, 0);
+        this.points = 0;
+        this.goals = new double[]{
+            field.getRadio()*Math.sin(Math.toRadians(22.5)),
+            field.getRadio()*Math.cos(Math.toRadians(45))            
+        };   
+    }
+    
+    public void setNumberOfBalls(int cant){
+        balls.clear();
+        balls.add(new Ball(20,300,300,5,5));
+        for(int x=1; x < cant; x++){ 
+            balls.add(new Ball(20,300,300,5,5));
+        }
     }
 
     public Racket getRacket() {
@@ -44,8 +61,24 @@ public class Model extends Observable {
         this.racket = racket;
     }
 
+    public double[] getGoals() {
+        return goals;
+    }
+
+    public void setGoals(double[] goal) {
+        this.goals = goal;
+    }
+
     public Ball getBall() {
         return ball;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public void setBall(Ball ball) {
@@ -69,7 +102,10 @@ public class Model extends Observable {
     
     public void step(){
         racket.move(this);
-        ball.move(this);
+        //ball.move(this);
+        for(int x=0; x < balls.size(); x++){
+            balls.get(x).move(this);
+        }
         this.setChanged();
         this.notifyObservers();
     }
@@ -89,9 +125,11 @@ public class Model extends Observable {
                 break;
         }
     }
+    
     public void stopVer(){
         racket.setBoost_y(0);
     }
+    
     public void stopHor(){
         racket.setBoost_x(0);
     }
