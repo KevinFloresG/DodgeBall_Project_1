@@ -8,9 +8,12 @@ package Pattern;
 import Objects.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 /**
  *
@@ -22,6 +25,8 @@ public class View extends JFrame implements Observer{
     
     private Model model;
     private Controller controller;
+    Image fondo;
+    Image raqueta;
 
     public View() {
         this.setSize(850,600);
@@ -34,6 +39,11 @@ public class View extends JFrame implements Observer{
                 formKeyReleased(evt);
             }
         });
+        
+        try{
+            fondo= ImageIO.read(getClass().getResourceAsStream("../media/fondo.jpg"));
+            raqueta=ImageIO.read(getClass().getResourceAsStream("../media/raqueta.png"));
+        }catch(IOException ex){}
     }
     
     private void formKeyPressed(java.awt.event.KeyEvent evt){
@@ -75,7 +85,7 @@ public class View extends JFrame implements Observer{
     
     @Override
     public void paint(Graphics g){
-        super.paint(g);
+        //super.paint(g);
         this.render(model, g);
     }
     void render(Model m, Graphics media){
@@ -90,21 +100,23 @@ public class View extends JFrame implements Observer{
     }
     
     void render(Field f, Graphics media){
-        media.setColor(Color.black);
-        media.drawOval(f.getX()-f.getRadio(), f.getY()-f.getRadio(), f.getRadio()*2, f.getRadio()*2);
-        media.drawLine(300,0,300,600);
-        media.drawLine(0,300,600,300);
-        media.drawLine(500,300,484,224);
-        media.drawLine(441,159,376,115);
-        media.drawLine(300,100,224,115);
-        media.drawLine(159,159,115,224);
-        media.drawLine(100,300,116,376);
-        media.drawLine(224, 485,159,441);
-        media.drawLine(300,500,376,484);
-        media.drawLine(441,441,484,376);
+       media.drawImage(fondo,f.getX()-f.getRadio(), f.getY()-f.getRadio(), f.getRadio()*2, f.getRadio()*2, this);
+//        media.setColor(Color.black);
+       media.drawOval(f.getX()-f.getRadio(), f.getY()-f.getRadio(), f.getRadio()*2, f.getRadio()*2);
+//        media.drawLine(300,0,300,600);
+//        media.drawLine(0,300,600,300);
+//        media.drawLine(500,300,484,224);
+//        media.drawLine(441,159,376,115);
+//        media.drawLine(300,100,224,115);
+//        media.drawLine(159,159,115,224);
+//        media.drawLine(100,300,116,376);
+//        media.drawLine(224, 485,159,441);
+//        media.drawLine(300,500,376,484);
+//        media.drawLine(441,441,484,376);
     }
     void renderRacket(Racket r, Graphics media){
-        media.setColor(Color.BLUE);
-        media.fillRect(r.getX(), r.getY(), r.getWidth(), r.getHeight());
+//        media.setColor(Color.BLUE);
+//        media.fillRect(r.getX(), r.getY(), r.getWidth(), r.getHeight());
+        media.drawImage(raqueta,r.getX(), r.getY(), r.getWidth(), r.getHeight(), this);
     }
 }

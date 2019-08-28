@@ -52,11 +52,14 @@ public class Racket extends Actor {
             Esquina superior derecha: x + width 
             Esquina inferior derecha: y + height + width
         */
-        if (pow(suma_x - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square || pow(suma_x + this.getWidth() - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square){
-             setBoost_x(getBoost_x()*-1);
+        
+        //Choque con respecto al eje x
+        if (pow((suma_x+this.getHeight()+this.getWidth()) - model.getField().getX(), 2) + pow (suma_y - model.getField().getY(),2) >= square ||pow(suma_x - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square || pow(suma_x + this.getWidth() - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square){
+             setBoost_x(getBoost_x()*0);
         }
-        if (pow(this.getX() - model.getField().getX(), 2) + pow (suma_y - model.getField().getY(),2)>= square || pow(this.getX() - model.getField().getX(), 2) + pow (suma_y + this.getHeight() - model.getField().getY(),2)>= square){
-             setBoost_x(getBoost_y()*-1);
+        //Choque con respecto al eje y
+        if ((pow(this.getX() - model.getField().getX(), 2) + pow (suma_y- model.getField().getY(),2)) >= square || pow(this.getX() - model.getField().getX(), 2) + pow (suma_y + this.getHeight() - model.getField().getY(),2)>= square){
+             setBoost_y(getBoost_y()*0);
         }
         this.setX(getX()+getBoost_x());
         this.setY(getY()+getBoost_y());

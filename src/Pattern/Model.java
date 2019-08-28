@@ -37,7 +37,7 @@ public class Model extends Observable {
         this.balls = new ArrayList<>();
         this.ball = new Ball(20,300,300,5,5);
         this.field = new Field(300,300,200);
-        this.racket = new Racket(60, 15, 250, 300, 0, 0);
+        this.racket = new Racket(100, 50, 250, 300, 0, 0);
         this.points = 0;
         this.goals = new double[]{
             field.getRadio()*Math.sin(Math.toRadians(22.5)),

@@ -15,7 +15,7 @@ import Pattern.*;
 public class Main {
     public static void main(String[] args) throws InterruptedException{
         Model model = new Model();
-        model.setNumberOfBalls(3);
+       // model.setNumberOfBalls(3);
         View view = new View();
         Controller controller = new Controller(model, view);
         
