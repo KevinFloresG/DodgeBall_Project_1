@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 //import java.util.List;
 
@@ -43,13 +44,16 @@ public class Model extends Observable {
             field.getRadio()*Math.sin(Math.toRadians(22.5)),
             field.getRadio()*Math.cos(Math.toRadians(45))            
         };   
+        reset(10,5);
     }
     
-    public void setNumberOfBalls(int cant){
+    public void reset(int cant, int v){
+        if(cant > 11 || cant < 1 || v > 25 || v < 1){ return; }
+        Random cor = new Random();
+        int cuadro = field.getX() - field.getRadio()/2;
         balls.clear();
-        balls.add(new Ball(20,300,300,5,5));
-        for(int x=1; x < cant; x++){ 
-            balls.add(new Ball(20,300,300,5,5));
+        for(int x=0; x < cant; x++){ 
+            balls.add(new Ball(20,cuadro + cor.nextInt(cuadro),cuadro + cor.nextInt(cuadro),v,v));
         }
     }
 
@@ -87,6 +91,14 @@ public class Model extends Observable {
 
     public Field getField() {
         return field;
+    }
+
+    public List<Ball> getBalls() {
+        return balls;
+    }
+
+    public void setBalls(List<Ball> balls) {
+        this.balls = balls;
     }
 
     public void setField(Field field) {
