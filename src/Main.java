@@ -15,16 +15,8 @@ import Pattern.*;
 public class Main {
     public static void main(String[] args) throws InterruptedException{
         Model model = new Model();
-       // model.setNumberOfBalls(3);
         View view = new View();
         Controller controller = new Controller(model, view);
-        
-        view.setVisible(true);
-        
-        for(;;){
-            Thread.sleep(25);
-            model.step();
-            System.out.println(model.getPoints()+"\n");
-        }
+        view.setVisible(true); 
     }
 }

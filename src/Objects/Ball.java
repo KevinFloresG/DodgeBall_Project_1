@@ -18,10 +18,30 @@ import static java.lang.Math.sqrt;
 public class Ball extends Actor {
     
     private int radio;
+    private boolean collision1;
+    private boolean collision2;
 
     public Ball(int radio, int x, int y, int boost_x, int boost_y) {
         super(x, y, boost_x, boost_y);
+        this.collision1 = false;
+        this.collision2 = false;
         this.radio = radio;
+    }
+
+    public boolean isCollision1() {
+        return collision1;
+    }
+
+    public void setCollision1(boolean collision1) {
+        this.collision1 = collision1;
+    }
+
+    public boolean isCollision2() {
+        return collision2;
+    }
+
+    public void setCollision2(boolean collision2) {
+        this.collision2 = collision2;
     }
 
     public int getRadio() {
@@ -84,21 +104,21 @@ public class Ball extends Actor {
         if(getY() < fy){
             if(getX() > fx){
                 if(getY() >= fy-limits[0]){ 
-                    model.setPoints(model.getPoints()+1);
+                    model.setPoints(model.getPoints()+1); collision1 = true;
                 }
                 else{
                     if(getX() >= fx+limits[0] && getY() <= fy-limits[1]){
-                        model.setPoints(model.getPoints()-1);
+                        model.setPoints(model.getPoints()-1); collision2 = true;
                     }
                 }
             }
             else{
                 if(getX() >= fx-limits[0]){
-                    model.setPoints(model.getPoints()+1);
+                    model.setPoints(model.getPoints()+1); collision1 = true;
                 }
                 else{
                     if(getY() <= fy-limits[0] && getY() >= fy-limits[1]){
-                        model.setPoints(model.getPoints()-1);
+                        model.setPoints(model.getPoints()-1); collision2 = true;
                     }
                 }
             }
@@ -106,21 +126,21 @@ public class Ball extends Actor {
         else{
             if(getX() < fx){
                 if(getY() <= fy+limits[0]){
-                    model.setPoints(model.getPoints()+1);
+                    model.setPoints(model.getPoints()+1); collision1 = true;
                 }
                 else{
                     if(getY() >= fy+limits[1] && getX() <= fx-limits[0]){
-                        model.setPoints(model.getPoints()-1);
+                        model.setPoints(model.getPoints()-1); collision2 = true;
                     }
                 }
             }
             else{
                 if(getX() <= fx+limits[0]){
-                    model.setPoints(model.getPoints()+1);
+                    model.setPoints(model.getPoints()+1); collision1 = true;
                 }
                 else{
                     if(getY()>= fy+limits[0] && getY() <= fy+limits[1]){
-                        model.setPoints(model.getPoints()-1);
+                        model.setPoints(model.getPoints()-1); collision2 = true;
                     }
                 }
             }

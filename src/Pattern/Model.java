@@ -32,29 +32,74 @@ public class Model extends Observable {
     public static final int ABA=2;
     public static final int IZQ=3;
     public static final int DER=4;
+    private int velocidad;
+    private boolean running;
     
 
     public Model() {
+        this.running = true;
         this.balls = new ArrayList<>();
-        this.ball = new Ball(20,300,300,5,5);
-        this.field = new Field(300,300,200);
+        this.field = new Field(300,320,250);
         this.racket = new Racket(100, 50, 250, 300, 0, 0);
         this.points = 0;
         this.goals = new double[]{
             field.getRadio()*Math.sin(Math.toRadians(22.5)),
             field.getRadio()*Math.cos(Math.toRadians(45))            
         };   
-        reset(10,5);
+        this.velocidad = 5;
+        reset(1,velocidad);
+    }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
     }
     
     public void reset(int cant, int v){
-        if(cant > 11 || cant < 1 || v > 25 || v < 1){ return; }
+        if(v>0) this.velocidad = v;
+        if(cant > 30 || cant < 1 || v > 25 || v < 1){ return; }
         Random cor = new Random();
         int cuadro = field.getX() - field.getRadio()/2;
         balls.clear();
         for(int x=0; x < cant; x++){ 
             balls.add(new Ball(20,cuadro + cor.nextInt(cuadro),cuadro + cor.nextInt(cuadro),v,v));
         }
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+    
+    public void pause(){
+        running = false;
+    }
+    
+    public void seguir(){
+        running = true;
+        this.start();
+    }
+    public void start(){
+        final int delay = 30;
+        Runnable code = new Runnable() { 
+            public void run(){
+            while(running){
+                step();
+                setChanged();
+                notifyObservers();
+                try{Thread.sleep(delay);} catch (InterruptedException ex) {
+                }
+            }
+        }
+        };
+        Thread thread = new Thread(code);
+        thread.start();
     }
 
     public Racket getRacket() {
@@ -114,7 +159,6 @@ public class Model extends Observable {
     
     public void step(){
         racket.move(this);
-        //ball.move(this);
         for(int x=0; x < balls.size(); x++){
             balls.get(x).move(this);
         }
@@ -124,16 +168,16 @@ public class Model extends Observable {
     public void move(int flecha){
         switch (flecha){
             case ARR: 
-                racket.setBoost_y(-2); //-
+                racket.setBoost_y(-5); //-
                 break;
             case ABA: 
-                racket.setBoost_y(2);
+                racket.setBoost_y(5);
                 break;
             case IZQ: 
-                racket.setBoost_x(-2); //-
+                racket.setBoost_x(-5); //-
                 break;
             case DER: 
-                racket.setBoost_x(2);
+                racket.setBoost_x(5);
                 break;
         }
     }
