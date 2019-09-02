@@ -151,6 +151,9 @@ public class Ball extends Actor {
     public void move(Model model){
         if(field_collision(model)){
             contador(model);
+            if(getY() > model.getField().getY() && getBoost_y() < 0){ 
+                this.setY(getY() - radio/2);
+            }
             setBoost_x(getBoost_x()*-1);
             setBoost_y(getBoost_y()*-1);
         }

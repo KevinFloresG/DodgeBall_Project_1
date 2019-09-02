@@ -7,6 +7,7 @@ package Objects;
 
 import Pattern.Model;
 import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 /**
  *
@@ -40,29 +41,25 @@ public class Racket extends Actor {
     public void setHeight(int height) {
         this.height = height;
     }
+   
+    public boolean field_collision(Model model, int x, int y){
+        int x_dif = model.getField().getX() - x;
+        int y_dif = model.getField().getY() - y;
+        double distance = sqrt(pow(x_dif,2)+pow(y_dif,2));
+        return distance >= model.getField().getRadio();
+    }
     
     @Override
     public void move(Model model){
-        int suma_x= getX()+getBoost_x();
-        double square= pow(model.getField().getRadio(), 2);
-        int suma_y= getY()+getBoost_y();
-        /*
-            Esquina superior izquierda: x 
-            Esquina inferior izquierda: y + height
-            Esquina superior derecha: x + width 
-            Esquina inferior derecha: y + height + width
-        */
-        
-        //Choque con respecto al eje x
-        if (pow((suma_x+this.getHeight()+this.getWidth()) - model.getField().getX(), 2) + pow (suma_y - model.getField().getY(),2) >= square ||pow(suma_x - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square || pow(suma_x + this.getWidth() - model.getField().getX(), 2) + pow (this.getY() - model.getField().getY(),2)>= square){
-             setBoost_x(getBoost_x()*0);
-        }
-        //Choque con respecto al eje y
-        if ((pow(this.getX() - model.getField().getX(), 2) + pow (suma_y- model.getField().getY(),2)) >= square || pow(this.getX() - model.getField().getX(), 2) + pow (suma_y + this.getHeight() - model.getField().getY(),2)>= square){
-             setBoost_y(getBoost_y()*0);
-        }
+        int bx = getX()+getBoost_x();
+        int by = getY()+getBoost_y();
+            if(field_collision(model, bx,by) || field_collision(model, bx+width,by)
+                    || field_collision(model, bx,by+height) || field_collision(model, bx+width,by+height)){
+                setBoost_x(0);
+                setBoost_y(0);
+            }
         this.setX(getX()+getBoost_x());
         this.setY(getY()+getBoost_y());
     }
-   
+    
 }
