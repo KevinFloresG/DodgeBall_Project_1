@@ -6,9 +6,11 @@
 package Pattern;
 
 import Objects.*;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -296,6 +298,7 @@ public class View extends JFrame implements Observer{
         render(m.getBalls(), media);
         render(m.getPoints(), media);
         renderRacket(m.getRacket(), media);
+        renderArcos(m.getField(), media);
     }
     
     void render(List<Ball> balls, Graphics media){
@@ -327,6 +330,28 @@ public class View extends JFrame implements Observer{
     void render(int points, Graphics media){
         media.setFont( new Font( "Arial", Font.BOLD, 46 ) );
         media.drawString(Integer.toString(points), 475, 100);
+    }
+    
+    void renderArcos(Field f, Graphics media){
+        Graphics2D circ= (Graphics2D) media;
+        circ.setStroke(new BasicStroke(10.f));
+        circ.setColor(Color.green);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), 115, -22);
+        circ.setColor(Color.red);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), 65, -18);
+        circ.setColor(Color.green);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), 22, -15);
+        circ.setColor(Color.red);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), -45, 22);
+        circ.setColor(Color.green);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), -90, 19);
+        circ.setColor(Color.red);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), -130, 20);
+        circ.setColor(Color.green);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), -180, 22);
+        circ.setColor(Color.red);
+        circ.drawArc(f.getX()-f.getRadio(), f.getY()-f.getRadio(), 2* f.getRadio(), 2* f.getRadio(), -230, 22);
+        
     }
     
     void renderRacket(Racket r, Graphics media){

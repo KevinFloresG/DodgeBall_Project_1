@@ -5,6 +5,7 @@
  */
 
 import Pattern.*;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
@@ -13,7 +14,7 @@ import Pattern.*;
  * Fernanda González
  */
 public class Main {
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException, UnsupportedAudioFileException{
         Model model = new Model();
         View view = new View();
         Controller controller = new Controller(model, view);
