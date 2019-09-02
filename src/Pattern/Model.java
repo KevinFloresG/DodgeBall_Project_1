@@ -12,8 +12,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
-//import java.util.List;
-
 /**
  *
  * @author 
@@ -58,6 +56,8 @@ public class Model extends Observable {
         this.velocidad = velocidad;
     }
     
+    public Ball getball(){ return balls.get(0); }
+    
     public void reset(int cant, int v){
         if(v>0) this.velocidad = v;
         if(cant > 30 || cant < 1 || v > 25 || v < 1){ return; }
@@ -67,6 +67,7 @@ public class Model extends Observable {
         for(int x=0; x < cant; x++){ 
             balls.add(new Ball(20,cuadro + cor.nextInt(cuadro),cuadro + cor.nextInt(cuadro),v,v));
         }
+        points =0;
     }
 
     public boolean isRunning() {
